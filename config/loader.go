@@ -14,6 +14,9 @@ type AppConfig struct {
 	ShutdownThreshold            int    `json:"shutdown_threshold"`
 	ShutdownThresholdDescription string `json:"_shutdown_threshold_说明"` // 新增说明字段
 
+	EnableShutdown            bool   `json:"enable_shutdown"`
+	EnableShutdownDescription string `json:"_enable_shutdown_说明"` // 新增说明字段
+
 	CheckInterval            int    `json:"check_interval"`
 	CheckIntervalDescription string `json:"_check_interval_说明"` // 新增说明字段
 
@@ -30,6 +33,9 @@ func LoadConfig(filename string) (*AppConfig, error) {
 
 		ShutdownThreshold:            5,
 		ShutdownThresholdDescription: "电量低于此数值时，系统将发出警告并在60秒后自动关机（如果未连接电源）。",
+
+		EnableShutdown:            true,                                                     // 默认开启关机功能
+		EnableShutdownDescription: "是否启用极低电量（低于ShutdownThreshold）时自动关机功能。", // 新增说明
 
 		CheckInterval:            30,
 		CheckIntervalDescription: "程序检测电池状态的时间间隔（单位：秒）。",

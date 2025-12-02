@@ -51,8 +51,10 @@ func Start(cfg *config.AppConfig) {
 		lastPluggedState = isPlugged
 
 		// --- 逻辑 2: 低电量自动关机 (仅在未充电时) ---
-		if !isPlugged && currentPct <= cfg.ShutdownThreshold {
+		if cfg.EnableShutdown && !isPlugged && currentPct <= cfg.ShutdownThreshold {
 			notify.ShowAlert("严重警告", "电量低于阈值，系统将在60秒后关机！请立即连接电源！")
+
+			// 执行关机
 			err := system.ShutdownWindows()
 			if err != nil {
 				fmt.Printf("关机失败: %v\n", err)
